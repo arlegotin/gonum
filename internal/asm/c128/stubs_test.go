@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-var tests = []struct {
+var axpyTests = []struct {
 	incX, incY, incDst int
 	ix, iy, idst       uintptr
 	a                  complex128
@@ -87,7 +87,7 @@ var tests = []struct {
 
 func TestAxpyUnitary(t *testing.T) {
 	const xGdVal, yGdVal = 1, 1
-	for cas, test := range tests {
+	for cas, test := range axpyTests {
 		xgLn, ygLn := 4+cas%2, 4+cas%3
 		test.x, test.y = guardVector(test.x, xGdVal, xgLn), guardVector(test.y, yGdVal, ygLn)
 		x, y := test.x[xgLn:len(test.x)-xgLn], test.y[ygLn:len(test.y)-ygLn]
@@ -108,7 +108,7 @@ func TestAxpyUnitary(t *testing.T) {
 
 func TestAxpyUnitaryTo(t *testing.T) {
 	const xGdVal, yGdVal, dstGdVal = 1, 1, 0
-	for cas, test := range tests {
+	for cas, test := range axpyTests {
 		xgLn, ygLn := 4+cas%2, 4+cas%3
 		test.x, test.y = guardVector(test.x, xGdVal, xgLn), guardVector(test.y, yGdVal, ygLn)
 		test.dst = guardVector(test.dst, dstGdVal, xgLn)
@@ -135,7 +135,7 @@ func TestAxpyUnitaryTo(t *testing.T) {
 
 func TestAxpyInc(t *testing.T) {
 	const xGdVal, yGdVal = 1, 1
-	for cas, test := range tests {
+	for cas, test := range axpyTests {
 		xgLn, ygLn := 4+cas%2, 4+cas%3
 		test.x, test.y = guardIncVector(test.x, xGdVal, test.incX, xgLn), guardIncVector(test.y, yGdVal, test.incY, ygLn)
 		x, y := test.x[xgLn:len(test.x)-xgLn], test.y[ygLn:len(test.y)-ygLn]
@@ -152,7 +152,7 @@ func TestAxpyInc(t *testing.T) {
 
 func TestAxpyIncTo(t *testing.T) {
 	const xGdVal, yGdVal, dstGdVal = 1, 1, 0
-	for cas, test := range tests {
+	for cas, test := range axpyTests {
 		xgLn, ygLn := 4+cas%2, 4+cas%3
 		test.x, test.y = guardIncVector(test.x, xGdVal, test.incX, xgLn), guardIncVector(test.y, yGdVal, test.incY, ygLn)
 		test.dst = guardIncVector(test.dst, dstGdVal, test.incDst, xgLn)
